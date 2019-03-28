@@ -16,4 +16,10 @@ Same as with the movie search with a few differences. The request is hitting Spo
 
 ## Concert Search
 
+This search hits the BandsInTown API and returns more than one result. In this case, that makes sense given there's no way to narrow down your search to a particular city. I left the default result size alone. I conver the datatime from the result into a more readable format using moment.
+
 ![alt text](GIFs/concertSearch.gif)
+
+### Future Development
+
+I need to get the default values hooked up to this. I tried with the IMDB but couldn't quite figure it out with the inquirer piece. I also need to hook something up to the wildcard option.
