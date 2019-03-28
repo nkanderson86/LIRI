@@ -1,28 +1,39 @@
-module.exports = concertSearch
+module.exports = concertSearch;
 
-function concertSearch(input) {
-    let inquirer = require('inquirer')
-    let axios = require('axios')
-    let moment = require('moment')
+function concertSearch() {
+  let inquirer = require("inquirer");
+  let axios = require("axios");
+  let moment = require("moment");
 
-    let artist = 'Father+John+Misty'
-    let queryUrl = `https://rest.bandsintown.com/artists/Father+John+Misty/events?app_id=codingbootcamp`
-
-
-
-    axios.get(queryUrl).then(
-        function (response) {
-            console.log(response.data)
-        }
-    )
-
+  inquirer
+    .prompt({
+      message: "What band would you like me to look up for you?",
+      name: "band",
+      type: "input"
+    })
+    .then(answer => {
+      axios
+        .get(
+          `https://rest.bandsintown.com/artists/${
+            answer.band
+          }/events?app_id=codingbootcamp`
+        )
+        .then(resp => {
+          for (let i = 0; i < resp.data.length; i++) {
+            //   console.log(resp.data[0]);
+            let concert = resp.data[i];
+            let artist = concert.lineup[0];
+            let venue = concert.venue.name;
+            let location = concert.venue.city + ", " + concert.venue.country;
+            let date = moment(concert.datetime).format("MM/DD/YYYY");
+            let results = {
+              artist,
+              venue,
+              location,
+              date
+            };
+            console.log(results);
+          }
+        });
+    });
 }
-
-concertSearch()
-
-
-
-
-// command will look like node liri.js concert-this <artist/band name here>
-
-// and return name of venue || venua location || date of event (use moment to format as MM/DD/YYYY)
