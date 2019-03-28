@@ -1,4 +1,4 @@
-module.exports = omdbSearch;
+// function that will use inquirer to ask the user what they'd like to search for and axios to make the API call.
 
 function omdbSearch() {
   let inquirer = require("inquirer");
@@ -10,6 +10,9 @@ function omdbSearch() {
       name: "movie",
       type: "input"
     })
+
+    // I take the user input from inquirer and split it on spaces, and then join those pieces back together with "+" to format it correctly for the search.
+
     .then(answer => {
       axios
         .get(
@@ -17,6 +20,9 @@ function omdbSearch() {
             .split(" ")
             .join("+")}`
         )
+
+        // reassigning the search results I'm interested in displaying to shorter variable names and then console logging those variables
+
         .then(ans => {
           let movie = ans.data;
           let Title = movie.Title;
@@ -45,3 +51,5 @@ function omdbSearch() {
       console.log(err);
     });
 }
+
+module.exports = omdbSearch;

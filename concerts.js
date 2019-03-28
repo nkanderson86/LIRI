@@ -1,4 +1,4 @@
-module.exports = concertSearch;
+// pretty strait forward search here, inquirer asks user for input and then searches based off that input.  I use a for loop to go through each of the search results and grab the information that the app will display.
 
 function concertSearch() {
   let inquirer = require("inquirer");
@@ -37,3 +37,4 @@ function concertSearch() {
         });
     });
 }
+module.exports = concertSearch;

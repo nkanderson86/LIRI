@@ -1,18 +1,21 @@
-module.exports = spotifySearch;
+// function requires a handful of things to work.  dotenv and keys are allowing me to store and use my personal keys without loading them up to github when I push code.
 
 function spotifySearch() {
   require("dotenv").config();
   let inquirer = require("inquirer");
-  var keys = require("./keys.js");
+  let keys = require("./keys.js");
   let Spotify = require("node-spotify-api");
-  var spotify = new Spotify(keys.spotify);
+  let spotify = new Spotify(keys.spotify);
 
+  // ask the user for the search terms
   inquirer
     .prompt({
       message: "What song would you like me to look up for you?",
       name: "song",
       type: "input"
     })
+    // take the user input and plug it into the search, the spotify API is nice and handles spaces well so I didn't have to do any splitting/joining to get around that.
+
     .then(answer => {
       spotify.search({ type: "track", query: answer.song }, function(
         err,
@@ -37,3 +40,5 @@ function spotifySearch() {
       });
     });
 }
+
+module.exports = spotifySearch;
